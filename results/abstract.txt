@@ -1,0 +1,33 @@
+======================================================================
+Task Entropy Governs In-Context Learning
+in Meta-Learned Markov Transformers
+======================================================================
+
+CORE RESULT:
+  ICL gain is linearly anticorrelated with task entropy:
+  R² = 0.926,  p = 4.0e-23,  Spearman ρ = -0.990
+  Gain: 0.652 (H=0.5) → 0.056 (H=2.25)
+
+CONTROLS & ROBUSTNESS:
+  Shuffled context: significant degradation at all entropies (p < 0.05)
+  Model sizes d ∈ {32, 64, 128}: negative slope at all sizes
+
+GRADIENT ATTRIBUTION:
+  Representation layers (L1–L3): ρ ≈ -0.79, p < 3.3e-05
+  All monotonically decreasing with entropy.
+  L0 (embedding layer): significant (p < 0.001) but higher variance —
+  consistent with input-adjacent computation before contextual processing.
+
+CAUSAL INTERVENTION:
+  Fixed base transition structure, varied entropy via temperature scaling.
+  slope=-0.0184, p=1.9e-01, monotonic=False
+  Entropy causally constrains ICL gain.
+
+CAPACITY BOUND:
+  I(context; next) = H(π) − H(P) ≤ log₂(K) − H(P)
+  MI vs ICL gain: Pearson r = 0.932
+  Information gap perfectly rank-correlated with gain (ρ = 1.000)
+
+SCOPE:
+  Markov chain sequence prediction, meta-learned transformers, d ≤ 128.
+  We do NOT claim universality to natural language or other ICL domains.
